@@ -18,5 +18,14 @@
 // reduced-motion. See src/styles/_accessibility.scss.
 @use "./styles/accessibility";
 
+// Page main spacing + trailing full-width band flush-to-footer. See _layout.scss.
+@use "./styles/layout";
+
+// Custom block styles (blocks/*). See src/styles/blocks/.
+@use "./styles/blocks/intro-section";
+
 // Back-to-top button (fixed-position chrome). See src/styles/_scroll-top.scss.
 @use "./styles/scroll-top";
+
+// Small utility classes applied via block className. See _utilities.scss.
+@use "./styles/utilities";

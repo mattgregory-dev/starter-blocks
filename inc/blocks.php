@@ -15,7 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function sb_register_blocks() {
-	// A registration line is added here as each block lands, e.g.:
-	// register_block_type( get_template_directory() . '/build/intro-section' );
+	register_block_type( get_template_directory() . '/build/intro-section' );
 }
 add_action( 'init', 'sb_register_blocks' );
