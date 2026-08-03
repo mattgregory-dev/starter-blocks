@@ -17,5 +17,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 function sb_register_blocks() {
 	register_block_type( get_template_directory() . '/build/intro-section' );
 	register_block_type( get_template_directory() . '/build/cta-band' );
+	register_block_type( get_template_directory() . '/build/checklist-section' );
 }
 add_action( 'init', 'sb_register_blocks' );
