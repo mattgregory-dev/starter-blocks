@@ -40,3 +40,9 @@
 
 // Small utility classes applied via block className. See _utilities.scss.
 @use "./styles/utilities";
+
+// Core-block pattern support (styling that patterns apply via className, where
+// theme.json / block markup can't reach). See the matching patterns/.
+@use "./styles/pricing"; // Pricing Cards
+@use "./styles/faq"; // FAQ Accordion
+@use "./styles/link-cards"; // Link Cards
