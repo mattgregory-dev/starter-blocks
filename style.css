@@ -4,8 +4,8 @@ Description: Bespoke block-based (FSE) starter theme. theme.json-driven design w
 Author: Matthew Gregory
 Version: 1.0.0
 Requires at least: 6.5
-Tested up to: 6.7
-Requires PHP: 7.4
+Tested up to: 7.0
+Requires PHP: 8.0
 Text Domain: starter-blocks
 Tags: full-site-editing, block-patterns, block-styles
 */
