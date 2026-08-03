@@ -21,8 +21,12 @@
 // Page main spacing + trailing full-width band flush-to-footer. See _layout.scss.
 @use "./styles/layout";
 
+// Button style variations (is-style-secondary). See _buttons.scss.
+@use "./styles/buttons";
+
 // Custom block styles (blocks/*). See src/styles/blocks/.
 @use "./styles/blocks/intro-section";
+@use "./styles/blocks/cta-band";
 
 // Back-to-top button (fixed-position chrome). See src/styles/_scroll-top.scss.
 @use "./styles/scroll-top";
