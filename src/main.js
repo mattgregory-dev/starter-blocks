@@ -13,3 +13,6 @@ if (import.meta.env.DEV) {
 // blocks, not here. Add custom JS below only for genuinely bespoke behavior,
 // ideally via the WordPress Interactivity API. JS behavior modules live in
 // src/scripts/ (mirrors src/styles/ for SCSS), imported here as features land.
+
+// Back-to-top button (fixed-position chrome; markup in inc/scroll-top.php).
+import "./scripts/scroll-top.js";

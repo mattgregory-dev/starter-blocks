@@ -58,6 +58,9 @@
         <element value="sb"/>
       </property>
     </properties>
+    <!-- "sb" is the theme's deliberate short namespace; allow it while keeping
+         the rest of the prefix enforcement. -->
+    <exclude name="WordPress.NamingConventions.PrefixAllGlobals.ShortPrefixPassed"/>
   </rule>
 
   <!-- Targets the "deprecated since" checks. -->
