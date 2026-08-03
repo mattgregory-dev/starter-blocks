@@ -17,3 +17,6 @@
 // Baseline accessibility utilities: skip-link theming, keyboard focus rings,
 // reduced-motion. See src/styles/_accessibility.scss.
 @use "./styles/accessibility";
+
+// Back-to-top button (fixed-position chrome). See src/styles/_scroll-top.scss.
+@use "./styles/scroll-top";
