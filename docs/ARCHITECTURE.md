@@ -68,6 +68,26 @@ The block namespace (`starter-blocks/*`), the generated class prefix
 (`starter-blocks`) are likewise permanent and shared across every cloned
 project. See the repo-root `CLAUDE.md` for the full conventions index.
 
+### Translucent variants: `color-mix`, not new tokens
+
+Tokens are solid colors. When you need one at reduced opacity — a hairline
+border, muted fine print, a subtle overlay — **don't add a semi-transparent token
+and don't hardcode `rgba()`**. Derive the alpha from the existing token with
+`color-mix()` in the SCSS layer, so a reseeded token value still ripples through:
+
+```scss
+// Solid fallback first (engines without color-mix), color-mix override second.
+border-top: 1px solid var(--wp--preset--color--surface-3);
+border-top: 1px solid color-mix(in srgb, var(--wp--preset--color--surface-3) 18%, transparent);
+```
+
+The first declaration is a solid fallback for engines that don't support
+`color-mix`; the second wins everywhere it's supported. Always mix `in srgb`; the
+percentage is the token's opacity and the remainder is `transparent`. This keeps
+the palette append-only (no `surface-3-15`-style opacity variants) and the token
+the single source of truth. Lives in `src/style.scss` partials only — it's real
+CSS logic, not a `theme.json` `styles.css` candidate.
+
 ## Project structure
 
 ```
@@ -102,6 +122,22 @@ header/footer chrome via `wp:post-content`. The starters in `patterns/` are
 reusable *starting points* an author inserts and edits, **not** page definitions
 composed by templates. The blog index (`home.html` / `archive.html`) is the
 exception that composes structure directly, including the `sidebar` template part.
+
+### Navigation and the logo are content, not template markup
+
+The header/footer ship a bare `<!-- wp:navigation /-->` — **no inline
+`navigation-link` blocks**. The menu is a `wp_navigation` post in the database,
+edited by the client through Editor → Navigation, and the block resolves to it at
+render. Likewise the logo is the `site_logo` option (set via the Site Logo block's
+Replace control), not an image baked into the part.
+
+**Never hardcode `navigation-link` blocks into a template or part.** Menu links are
+client-editable content; inlining them moves that content into the theme file, so
+every menu change becomes a code edit and redeploy — and the file silently diverges
+from the DB menu the Navigation block actually renders. If a project needs a
+default menu shipped with the theme, seed it once (an install step or a one-time
+import), don't inline it. Same principle as pages living in `post_content`:
+structure in the theme, content in the database.
 
 ### Full-width bands and the flush-to-footer system
 
