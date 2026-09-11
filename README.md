@@ -56,3 +56,7 @@ to `wp-config.php` and run `npm run dev` (Vite on `:5175`).
   the Stage 0 standing asset for.
 - [CLAUDE.md](CLAUDE.md) — the conventions index (namespaces, prefixes, token
   rules, commit discipline) read at the start of any work in this repo.
+
+## License
+
+The theme is GPLv2 or later — see [LICENSE](LICENSE).
