@@ -73,6 +73,48 @@ editing surface). See [docs/PIPELINE.md](docs/PIPELINE.md), Stage 4.
 - **No em dashes in marketing prose.** Docs, docblocks, and pattern descriptions
   may use them freely; visitor-facing copy may not.
 
+## Editing page content
+
+Templates, patterns and blocks are in git. **Page content is not** — it lives in
+`post_content`, edited in the block editor, and nothing sends it back to the
+repo.
+
+**Anything writing page content programmatically goes through
+`scripts/sb-pull.php` and `scripts/sb-push.php`. Never a raw `wp post update` or
+`wp_update_post`.** Same transport, but the scripts add guards the raw commands
+skip:
+
+- **Stale-push guard.** The pull records a baseline hash; the push refuses to
+  write if the database has changed since. **There is no override flag, on
+  purpose** — re-pull, reconcile, then push. This is what stops a stale write
+  clobbering whatever was edited in the block editor meanwhile.
+- **Fidelity.** The push runs as an administrator with `unfiltered_html` and
+  slashes the content. Raw WP-CLI runs as user 0 with kses active, which silently
+  strips `<iframe>`, `<script>` and inline SVG — and unslashed input eats the
+  backslashes in escaped block attributes, so `sb-trust` becomes
+  `su002dtrust` and the editor then reports invalid content.
+- **Backup.** Every push copies the current database content to
+  `.work/backups/` first.
+
+Run from the **project root**:
+
+```
+docker compose run --rm -T wpcli wp eval-file \
+  wp-content/themes/starter-blocks/scripts/sb-pull.php <post-id> > wp/.work/<slug>.html
+
+# edit wp/.work/<slug>.html
+
+docker compose run --rm -T wpcli wp eval-file \
+  wp-content/themes/starter-blocks/scripts/sb-push.php <slug>
+```
+
+**Re-pull immediately before every push — including for a page authored in the
+same session.** The database is the only source of truth; someone may be editing
+it in the block editor right now.
+
+`wp/.work/` must be group-writable (`chmod 2775`): the `wpcli` container writes
+as uid 33, and a directory created by the WSL user is not writable by it.
+
 ## Where things live
 
 - Conventions & mental model → this file, then [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
