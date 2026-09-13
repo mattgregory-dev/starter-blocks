@@ -144,7 +144,7 @@
 
 // 800–1160px: equal-width columns (50/50), top-aligned — otherwise the shorter
 // column floats in the extra space.
-@media (width <= 1160px) {
+@media (max-width: 1160px) {
   .wp-block-starter-blocks-hero {
     .hero__inner { align-items: flex-start; }
 
@@ -154,7 +154,7 @@
 }
 
 // <= 800px: stack full-width, with tighter vertical padding.
-@media (width <= 800px) {
+@media (max-width: 800px) {
   .wp-block-starter-blocks-hero {
     padding-block: var(--wp--preset--spacing--40);
 
